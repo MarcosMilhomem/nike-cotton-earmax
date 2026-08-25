@@ -4,7 +4,7 @@
     {
       "name": "nike-earmax",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["server.js"],
+      "runtimeArgs": ["dev-server.js"],
       "port": 4599
     }
   ]
