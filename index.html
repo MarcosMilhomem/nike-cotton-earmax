@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nike Cotton EarMax — The Cotton Swab, Reinvented</title>
+  <meta name="description" content="Nike Cotton EarMax — the cotton swab reinvented. Spiral organic-cotton tip, bamboo-fiber core, 100% biodegradable. Just Clear It." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --ink: #111111;
+      --white: #ffffff;
+      --paper: #f4f2ee;
+      --cotton: #ece7df;
+      --volt: #d6ff2b;
+      --ember: #ff6a3d;
+      --grey: #6b6b6b;
+      --line: rgba(0, 0, 0, 0.1);
+      --radius: 22px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap { width: min(1200px, 92vw); margin: 0 auto; }
+
+    /* ---------- NAV ---------- */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      color: var(--white);
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease);
+    }
+    header.solid {
+      backdrop-filter: blur(14px);
+      background: rgba(244, 242, 238, 0.72);
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+    }
+    /* Over the dark hero video, flip the CTA + underline to white */
+    header:not(.solid) .nav-links a::after { background: var(--white); }
+    header:not(.solid) .btn { background: var(--white); color: var(--black); }
+    header:not(.solid) .btn:hover { background: var(--volt); }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-size: 20px;
+    }
+    .swoosh { width: 46px; height: auto; }
+    .nav-links {
+      display: flex;
+      gap: 34px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .nav-links a { position: relative; transition: opacity .2s var(--ease); }
+    .nav-links a::after {
+      content: '';
+      position: absolute; left: 0; bottom: -6px;
+      width: 0; height: 2px; background: var(--black);
+      transition: width .3s var(--ease);
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--black);
+      color: var(--white);
+      padding: 13px 26px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: transform .25s var(--ease), background .25s var(--ease);
+    }
+    .btn:hover { transform: translateY(-2px); background: #000; }
+    .btn.volt { background: var(--volt); color: var(--black); }
+    .btn.ghost { background: transparent; color: var(--black); border: 1.5px solid var(--black); }
+    .btn.ghost:hover { background: var(--black); color: var(--white); }
+
+    @media (max-width: 820px) { .nav-links { display: none; } }
+
+    /* ---------- SCROLL HERO ---------- */
+    /* Tall stage gives the scroll room; the inner panel is pinned (sticky). */
+    .scroll-hero {
+      position: relative;
+      height: 400vh;            /* scroll distance -> video timeline */
+      background: #000;
+    }
+    .hero-pin {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #000;
+      /* seek smoothing hint */
+      will-change: contents;
+    }
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(120% 90% at 50% 40%, transparent 45%, rgba(0,0,0,0.55) 100%),
+        linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 25%, transparent 65%, rgba(0,0,0,0.5) 100%);
+      pointer-events: none;
+    }
+    .hero-line {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(1100px, 90vw);
+      text-align: center;
+      color: var(--white);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      text-transform: uppercase;
+      will-change: transform, opacity;
+      pointer-events: none;
+      text-shadow: 0 8px 40px rgba(0,0,0,0.45);
+    }
+    .hero-line.l1 { font-size: clamp(34px, 6.4vw, 92px); }
+    .hero-line.l2 {
+      font-size: clamp(48px, 10vw, 150px);
+      opacity: 0;
+    }
+    .hero-line.l2 .volt { color: var(--volt); }
+
+    /* Scroll hint at the very top */
+    .scroll-hint {
+      position: absolute;
+      z-index: 4;
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.75);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      will-change: opacity;
+    }
+    .scroll-hint .mouse {
+      width: 22px; height: 34px;
+      border: 2px solid rgba(255,255,255,0.6);
+      border-radius: 12px;
+      position: relative;
+    }
+    .scroll-hint .mouse::after {
+      content: '';
+      position: absolute;
+      top: 6px; left: 50%;
+      width: 3px; height: 7px;
+      background: #fff;
+      border-radius: 2px;
+      transform: translateX(-50%);
+      animation: wheel 1.6s var(--ease) infinite;
+    }
+    @keyframes wheel {
+      0% { opacity: 0; transform: translate(-50%, -2px); }
+      40% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, 12px); }
+    }
+
+    /* ---------- MARQUEE ---------- */
+    .marquee {
+      background: var(--black);
+      color: var(--white);
+      padding: 20px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      gap: 60px;
+      animation: scroll 22s linear infinite;
+      font-weight: 800;
+      font-size: 22px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+    .marquee-track span { display: inline-flex; align-items: center; gap: 60px; }
+    .marquee .star { color: var(--volt); }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+
+    /* ---------- FEATURES ---------- */
+    section { padding: 110px 0; }
+    .section-head { max-width: 640px; margin-bottom: 64px; }
+    .section-head h2 {
+      font-size: clamp(34px, 4.6vw, 58px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+    .section-head p { margin-top: 18px; font-size: 18px; color: #444; line-height: 1.5; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 34px;
+      border: 1px solid var(--line);
+      transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(0,0,0,0.3); }
+    .card .icon {
+      width: 54px; height: 54px;
+      border-radius: 14px;
+      background: var(--cotton);
+      display: grid; place-items: center;
+      margin-bottom: 24px;
+      font-size: 26px;
+    }
+    .card.dark { background: var(--black); color: var(--white); }
+    .card.dark .icon { background: rgba(255,255,255,0.1); }
+    .card.volt-card { background: var(--volt); }
+    .card h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .card p { font-size: 15.5px; line-height: 1.55; color: inherit; opacity: 0.82; }
+
+    @media (max-width: 900px) { .feature-grid { grid-template-columns: 1fr; } }
+
+    /* ---------- SCROLL SHOWCASE (dark premium, page <-> card morph) ---------- */
+    .showcase {
+      position: relative;
+      height: calc(var(--cards, 6) * 100vh);   /* one screen of scroll per card */
+      background: #060606;
+      padding: 0;   /* override the generic `section { padding: 110px 0 }` so the pin sits flush */
+    }
+    .showcase-pin {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #060606;
+    }
+    .showcase-track {
+      display: flex;
+      height: 100%;
+      width: calc(var(--cards, 6) * 100vw);
+      will-change: transform;
+    }
+    .panel {
+      flex: 0 0 100vw;
+      height: 100vh;
+      position: relative;
+      --acc: var(--volt); --acc-ink: #0a0a0a;
+    }
+    .panel[data-acc="white"] { --acc: #ffffff; --acc-ink: #0a0a0a; }
+    .panel[data-acc="ember"] { --acc: var(--ember); --acc-ink: #0a0a0a; }
+
+    /* --m: 0 = full-bleed page (centered/at rest), 1 = shrunken card (in transition) */
+    .scard {
+      position: absolute;
+      top: calc(var(--m, 0) * 7vh);
+      bottom: calc(var(--m, 0) * 7vh);
+      left: calc(var(--m, 0) * 5vw);
+      right: calc(var(--m, 0) * 5vw);
+      border-radius: calc(var(--m, 0) * 34px);
+      overflow: hidden;
+      background: radial-gradient(120% 130% at 82% 10%, #1c1c1c 0%, #101010 52%, #070707 100%);
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 60px 130px -60px rgba(0,0,0,0.9);
+      color: var(--white);
+      will-change: top, bottom, left, right, border-radius;
+    }
+
+    /* product media (right side), with per-card shape + zoom */
+    .scard-media {
+      position: absolute;
+      top: 0; bottom: 0; right: 0;
+      width: 48%;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .scard-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scale(var(--z, 1.1));
+      transform-origin: center;
+      will-change: transform;
+    }
+    .scard-media::after {
+      content: '';
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg, #0c0c0c 0%, rgba(12,12,12,0.6) 24%, transparent 58%);
+    }
+    /* shape variants adapt to the card / subject */
+    .scard[data-shape="frame"] .scard-media {
+      top: 9%; bottom: 9%; right: 4%;
+      width: 40%;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .scard[data-shape="frame"] .scard-media::after {
+      background: linear-gradient(90deg, rgba(12,12,12,0.45) 0%, transparent 42%);
+    }
+    .scard[data-shape="circle"] .scard-media {
+      top: 50%; right: 6%;
+      width: min(40vw, 480px); height: min(40vw, 480px);
+      transform: translateY(-50%);
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .scard[data-shape="circle"] .scard-media::after { display: none; }
+
+    /* carbon-fiber texture (slide 03): right half solid-to-texture fade */
+    .scard[data-tex="carbon"] .scard-media { width: 52%; }
+    .scard[data-tex="carbon"] .scard-media::after {
+      background: linear-gradient(90deg, #0d0d0d 0%, #0d0d0d 8%, rgba(13,13,13,0.72) 30%, transparent 66%);
+    }
+    .carbon-tex {
+      position: absolute;
+      inset: 0;
+      background-color: #141414;
+      background-image:
+        linear-gradient(27deg,  #1b1b1b 5px, transparent 5px),
+        linear-gradient(207deg, #1b1b1b 5px, transparent 5px),
+        linear-gradient(27deg,  #262626 5px, transparent 5px),
+        linear-gradient(207deg, #262626 5px, transparent 5px),
+        linear-gradient(90deg,  #202020 10px, transparent 10px),
+        linear-gradient(#1e1e1e 25%, #181818 25%, #181818 50%, transparent 50%, transparent 75%, #262626 75%, #262626);
+      background-size: 20px 20px;
+      background-position: 0 5px, 10px 0, 0 10px, 10px 5px, 0 0, 0 0;
+    }
+    .carbon-tex::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(120% 90% at 80% 20%, rgba(214,255,43,0.08), transparent 55%),
+        linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* content overlay (left) */
+    .scard-inner {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(34px, 5vw, 88px);
+      pointer-events: none;
+    }
+    .scard-inner > * { pointer-events: auto; }
+    .scard .ghost {
+      position: absolute;
+      left: clamp(20px, 4vw, 70px);
+      bottom: -5vh;
+      z-index: 0;
+      font-size: clamp(200px, 30vw, 460px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: var(--acc);
+      opacity: 0.09;
+      pointer-events: none;
+    }
+    .scard-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .scard-top .count b { color: var(--white); }
+    .scard-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 100px;
+      background: var(--acc);
+      color: var(--acc-ink);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+    }
+    .scard-body { max-width: 52%; position: relative; z-index: 1; }
+    .scard .chip {
+      width: 72px; height: 72px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      display: grid; place-items: center;
+      font-size: 36px;
+      margin-bottom: 26px;
+    }
+    .scard h3 {
+      font-size: clamp(38px, 5.2vw, 82px);
+      line-height: 0.94;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .scard h3 em { font-style: normal; color: var(--acc); }
+    .scard p {
+      font-size: clamp(16px, 1.6vw, 21px);
+      line-height: 1.5;
+      color: rgba(255,255,255,0.66);
+      max-width: 440px;
+    }
+    .scard-foot {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 800;
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      max-width: 54%;
+    }
+    .scard-foot .bar { flex: 1; height: 2px; background: rgba(255,255,255,0.14); position: relative; overflow: hidden; }
+    .scard-foot .bar i { position: absolute; inset: 0; width: 42%; background: var(--acc); }
+
+    /* Bottom progress bar — fills with scroll, then rises to fill the screen at the end */
+    .showcase-bar {
+      position: absolute;
+      z-index: 6;
+      left: 0; right: 0; bottom: 0;
+      height: 6px;
+      background: rgba(255,255,255,0.12);
+      pointer-events: none;
+    }
+    .showcase-fill {
+      position: absolute;
+      z-index: 6;
+      left: 0; bottom: 0;
+      width: 0;             /* JS: = scroll progress across the cards */
+      height: 6px;          /* JS: grows to 100vh during the outro */
+      background: var(--volt);
+      will-change: width, height;
+    }
+    /* final tagline revealed on the volt fill */
+    .showcase-outro {
+      position: absolute;
+      z-index: 7;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0;           /* JS: fades in as the fill covers the screen */
+      pointer-events: none;
+    }
+    .showcase-outro h2 {
+      font-size: clamp(48px, 11vw, 168px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.86;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--black);
+    }
+
+    /* Mobile: normal vertical stack (image above content), no scroll-jacking */
+    @media (max-width: 820px) {
+      .showcase { height: auto !important; background: #060606; }
+      .showcase-pin { position: static; height: auto; overflow: visible; }
+      .showcase-track { flex-direction: column; width: 100%; transform: none !important; }
+      .panel { height: auto; }
+      .scard {
+        position: relative; inset: auto;
+        top: 0 !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+        border-radius: 0; opacity: 1 !important;
+        display: flex; flex-direction: column;
+        min-height: auto;
+      }
+      .scard-media {
+        position: relative; width: 100%; height: 44vh;
+        top: auto; bottom: auto; right: auto; left: auto;
+        border-radius: 0 !important; border: 0 !important;
+        transform: none !important;
+      }
+      .scard[data-shape] .scard-media { border-radius: 0 !important; }
+      .scard-inner { position: relative; inset: auto; padding: 32px 22px 44px; }
+      .scard-body { max-width: 100%; }
+      .scard-foot { max-width: 100%; }
+      .scard h3 { font-size: clamp(34px, 11vw, 58px); }
+      .scard p { max-width: 100%; }
+      .showcase-bar, .showcase-fill, .showcase-outro { display: none; }
+    }
+
+    /* ---------- UNBOX: volt curtain lifts to reveal a scroll-scrubbed frame sequence ---------- */
+    /* NOTE: this section's base class is `.unbox`, NOT `.reveal` — `.reveal` is the
+       fade-in animation utility used all over the page, so reusing it here collided. */
+    .unbox {
+      position: relative;
+      /* 1 screen to lift the curtain + N screens to scrub the frames */
+      height: calc((var(--scrub, 4) + 1) * 100vh);
+      background: var(--volt);
+      padding: 0;   /* override generic `section { padding: 110px 0 }` so the pin stays flush */
+    }
+    .reveal-pin {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #060606;
+    }
+    /* frames + copy sit underneath, already rendered; a subtle parallax drift */
+    .reveal-frames {
+      position: absolute;
+      left: 0; right: 0;
+      top: -8vh; height: calc(100% + 16vh);   /* oversized so parallax never gaps */
+      z-index: 1;
+      will-change: transform;
+    }
+    .reveal-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    /* volt curtain on top: slides up to reveal the frames (parallax) */
+    .reveal-curtain {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: grid;
+      place-items: center;
+      background: var(--volt);
+      transform: translateY(0);      /* JS drives 0 -> -100% (lift up) */
+      will-change: transform;
+    }
+    .reveal-curtain h2 {
+      font-size: clamp(48px, 11vw, 168px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.86;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--black);
+    }
+    .reveal-copy {
+      position: absolute;
+      inset: 0;                      /* sibling of the parallax layer -> stays put */
+      z-index: 3;
+      pointer-events: none;
+    }
+    /* --nav clears the fixed header (68px) with breathing room */
+    .reveal-copy .eyebrow {
+      position: absolute;
+      top: calc(88px + 3vh);
+      left: 50%; transform: translateX(-50%);
+      font-size: 13px; font-weight: 800; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.62);
+      white-space: nowrap;
+    }
+    .reveal-copy h2 {
+      position: absolute;
+      top: calc(120px + 5vh);
+      left: 0; right: 0;
+      text-align: center;
+      margin: 0 auto;
+      font-size: clamp(40px, 7vw, 108px);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 0.9;
+      text-transform: uppercase; color: var(--white);
+      text-shadow: 0 10px 50px rgba(0,0,0,0.5);
+      will-change: opacity;
+    }
+    .reveal-copy h2 em { font-style: normal; color: var(--volt); }
+    .reveal-copy .c2 { opacity: 0; }
+
+    @media (max-width: 820px) {
+      .unbox { height: 100vh; }
+      .reveal-pin { position: relative; height: 100vh; }
+      .reveal-frames { top: 0; height: 100%; transform: none !important; }
+      .reveal-copy { inset: 0; }
+      .reveal-curtain { display: none; }   /* show the frames directly on mobile */
+      .reveal-copy h2 { font-size: clamp(34px, 11vw, 64px); }
+    }
+
+    /* ---------- SPECS ---------- */
+    .specs { background: var(--black); color: var(--white); border-radius: 40px; }
+    .specs .wrap { padding: 0; }
+    .specs-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .specs h2 { color: var(--white); }
+    .spec-list { list-style: none; }
+    .spec-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .spec-list .label { font-size: 15px; color: #a8a8a8; font-weight: 600; }
+    .spec-list .val { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+    .spec-list .val .unit { font-size: 14px; color: var(--volt); margin-left: 4px; }
+    @media (max-width: 900px) { .specs-inner { grid-template-columns: 1fr; gap: 30px; } }
+
+    /* ---------- PACK STUDIO (live product preview) ---------- */
+    .pack-studio {
+      /* per-edition palette, swapped live by JS */
+      --case: #ece7df; --case2: #d9d1c0; --onbox: #20201d;
+      --accent: #c9a24b; --stem: #2a2620; --tip: #f6f2ea;
+    }
+    .pack-stage {
+      position: relative;
+      background: radial-gradient(130% 120% at 50% 8%, #1c1c1c 0%, #0e0e0e 55%, #070707 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 30px;
+      padding: clamp(26px, 4.5vw, 60px);
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(20px, 4vw, 56px);
+      align-items: center;
+      overflow: hidden;
+      transition: background .5s var(--ease);
+    }
+    .pack-stage::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(60% 60% at 30% 40%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%);
+      opacity: .5; pointer-events: none;
+      transition: background .5s var(--ease);
+    }
+    .pack-viz { position: relative; z-index: 1; }
+    .pack-box, .pack-swab { width: 100%; height: auto; display: block; overflow: visible; }
+    .pack-box { max-height: 460px; filter: drop-shadow(0 46px 60px rgba(0,0,0,0.55)); }
+    .pack-swab { max-height: 440px; margin: 0 auto; filter: drop-shadow(0 34px 44px rgba(0,0,0,0.5)); }
+    /* SVG fills driven by the palette vars */
+    .cg1 { stop-color: var(--case); } .cg2 { stop-color: var(--case2); }
+    .p-onbox { fill: var(--onbox); } .p-accent { fill: var(--accent); }
+    .p-stem  { fill: var(--stem);  } .p-tip    { fill: var(--tip);    }
+    .p-window { fill: #0c0c0c; }
+    .p-case, .p-stem, .p-accent, .p-tip, .p-onbox { transition: fill .5s var(--ease); }
+    .cg1, .cg2 { transition: stop-color .5s var(--ease); }
+
+    .pack-label { margin-top: 26px; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+    .pack-label .name { font-size: clamp(22px, 2.4vw, 30px); font-weight: 900; letter-spacing: -0.02em; }
+    .pack-label .price { font-weight: 800; color: var(--grey); }
+    .pack-picker { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+    .pack-chip {
+      display: inline-flex; align-items: center; gap: 11px;
+      padding: 11px 18px 11px 12px;
+      border: 1.5px solid var(--line); border-radius: 100px;
+      background: var(--white); cursor: pointer;
+      font-weight: 800; font-size: 14px; color: var(--ink);
+      transition: border-color .25s var(--ease), transform .25s var(--ease), background .25s var(--ease), color .25s var(--ease);
+    }
+    .pack-chip:hover { transform: translateY(-2px); border-color: rgba(0,0,0,0.35); }
+    .pack-chip .dot { width: 22px; height: 22px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18); }
+    .pack-chip.on { background: var(--black); color: var(--white); border-color: var(--black); }
+    .pack-chip.on .dot { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25), 0 0 0 3px rgba(255,255,255,0.18); }
+
+    @media (max-width: 720px) {
+      .pack-stage { grid-template-columns: 1fr; gap: 20px; }
+      .pack-box { max-height: 320px; }
+      .pack-swab { max-height: 300px; }
+    }
+
+    /* ---------- CTA ---------- */
+    .cta-band {
+      background: var(--volt);
+      border-radius: 40px;
+      padding: 80px 60px;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: clamp(38px, 6vw, 82px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--black);
+    }
+    .cta-band p { margin: 22px auto 34px; max-width: 460px; font-size: 18px; color: #2a2a2a; }
+
+    /* ---------- FOOTER ---------- */
+    footer { padding: 70px 0 40px; }
+    .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+    .foot-grid h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--grey); margin-bottom: 18px; }
+    .foot-grid ul { list-style: none; }
+    .foot-grid li { margin-bottom: 12px; font-weight: 600; font-size: 15px; }
+    .foot-grid li a:hover { color: var(--grey); }
+    .foot-brand p { margin-top: 16px; color: #555; max-width: 300px; line-height: 1.5; font-size: 15px; }
+    .foot-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 30px;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--grey);
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    @media (max-width: 800px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header>
+    <div class="wrap">
+      <nav>
+        <div class="brand">
+          <svg class="swoosh" viewBox="0 0 24 8.4" fill="currentColor"><path d="M23.4.3c-.6.3-1.4.7-9.2 5.5C8.5 9.3 6 10.2 4.4 9.5 3.1 8.9 3 7.6 3.4 6.4 3.9 5 5 3.6 5.9 2.6c-.2.3-2 3.1.4 3.9 1.4.5 3.6-.5 5-1.2C13 4.4 22.4.4 22.7.3c.5-.2.9-.1.7 0z"/></svg>
+          <span>EarMax</span>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Technology</a>
+          <a href="#specs">Specs</a>
+          <a href="#colors">Packs</a>
+          <a href="#buy">Shop</a>
+        </div>
+        <a href="#buy" class="btn">Buy Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SCROLL HERO (video scrubbed by scroll) -->
+  <section class="scroll-hero" id="hero">
+    <div class="hero-pin">
+      <video class="hero-video" id="heroVideo" src="assets/hero.mp4"
+             muted playsinline preload="auto" webkit-playsinline></video>
+      <div class="hero-vignette"></div>
+
+      <h2 class="hero-line l1" id="line1">The cotton swab.<br>Reinvented.</h2>
+      <h2 class="hero-line l2" id="line2">Just <span class="volt">Clear</span> It</h2>
+
+      <div class="scroll-hint" id="scrollHint">
+        <span>Scroll</span>
+        <span class="mouse"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Spiral Cotton Tip <b class="star">✦</b> 100% Biodegradable <b class="star">✦</b> Carbon-Fiber Core <b class="star">✦</b> Dermatologist-Tested <b class="star">✦</b> Just Clear It <b class="star">✦</b></span>
+      <span>Spiral Cotton Tip <b class="star">✦</b> 100% Biodegradable <b class="star">✦</b> Carbon-Fiber Core <b class="star">✦</b> Dermatologist-Tested <b class="star">✦</b> Just Clear It <b class="star">✦</b></span>
+    </div>
+  </div>
+
+  <!-- FEATURES — horizontal scroll-snapped showcase -->
+  <section class="showcase" id="features" style="--cards:6;">
+    <div class="showcase-pin">
+      <div class="showcase-track" id="showcaseTrack">
+
+        <div class="panel" data-acc="volt">
+          <article class="scard" data-shape="cover">
+            <span class="ghost">01</span>
+            <div class="scard-media"><img class="scard-img" src="assets/product.png" alt="Nike Cotton EarMax" style="object-position:62% 42%"></div>
+            <div class="scard-inner">
+              <div class="scard-top">
+                <span class="count"><b>01</b> / 06</span>
+                <span class="scard-tag">Engineered to Clear</span>
+              </div>
+              <div class="scard-body">
+                <h3>Spiral <em>Cotton</em> Tip</h3>
+                <p>A micro-spiral weave grabs more in a single pass — precision cleaning that leaves nothing behind, and never sheds a fiber.</p>
+              </div>
+              <div class="scard-foot"><span>Grip</span><span class="bar"><i></i></span><span>One-pass clean</span></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="panel" data-acc="white">
+          <article class="scard" data-shape="frame">
+            <span class="ghost">02</span>
+            <div class="scard-media"><img class="scard-img" src="assets/product.png" alt="Nike Cotton EarMax swab tips" style="object-position:58% 30%"></div>
+            <div class="scard-inner">
+              <div class="scard-top">
+                <span class="count"><b>02</b> / 06</span>
+                <span class="scard-tag">Safe by Design</span>
+              </div>
+              <div class="scard-body">
+                <h3>Precision <em>Safety</em> Core</h3>
+                <p>A contoured stop-tip guides depth and shape, so every clear stays controlled, comfortable, and safe — by design, not by luck.</p>
+              </div>
+              <div class="scard-foot"><span>Control</span><span class="bar"><i></i></span><span>Guided depth</span></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="panel" data-acc="ember">
+          <article class="scard" data-shape="cover" data-tex="carbon">
+            <span class="ghost">03</span>
+            <div class="scard-media"><div class="carbon-tex"></div></div>
+            <div class="scard-inner">
+              <div class="scard-top">
+                <span class="count"><b>03</b> / 06</span>
+                <span class="scard-tag">Bend, Never Break</span>
+              </div>
+              <div class="scard-body">
+                <h3>Carbon-<em>Fiber</em> Stem</h3>
+                <p>A woven carbon-fiber stem that flexes under load and springs right back — impossibly light, engineered to never snap.</p>
+              </div>
+              <div class="scard-foot"><span>Flex</span><span class="bar"><i></i></span><span>Snap-proof</span></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="panel" data-acc="volt">
+          <article class="scard" data-shape="cover">
+            <span class="ghost">04</span>
+            <div class="scard-media"><img class="scard-img" src="assets/product.png" alt="Nike Cotton EarMax box" style="object-position:48% 46%"></div>
+            <div class="scard-inner">
+              <div class="scard-top">
+                <span class="count"><b>04</b> / 06</span>
+                <span class="scard-tag">Plastic-Free</span>
+              </div>
+              <div class="scard-body">
+                <h3>100% <em>Biodegradable</em></h3>
+                <p>Organic cotton on a plastic-free core. Fully home-compostable — it breaks down in under 90 days, not centuries.</p>
+              </div>
+              <div class="scard-foot"><span>Impact</span><span class="bar"><i></i></span><span>Composts in 90d</span></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="panel" data-acc="white">
+          <article class="scard" data-shape="frame">
+            <span class="ghost">05</span>
+            <div class="scard-media"><img class="scard-img" src="assets/product.png" alt="Just Clean It detail" style="object-position:66% 58%"></div>
+            <div class="scard-inner">
+              <div class="scard-top">
+                <span class="count"><b>05</b> / 06</span>
+                <span class="scard-tag">One Swab, Everything</span>
+              </div>
+              <div class="scard-body">
+                <h3>Multi-<em>Surface</em> Ready</h3>
+                <p>Ears, makeup touch-ups, sneaker detailing, tech crevices — one swab for every clean-up the day throws at you.</p>
+              </div>
+              <div class="scard-foot"><span>Range</span><span class="bar"><i></i></span><span>Every surface</span></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="panel" data-acc="ember">
+          <article class="scard" data-shape="circle">
+            <span class="ghost">06</span>
+            <div class="scard-media"><img class="scard-img" src="assets/product.png" alt="Nike Cotton EarMax closed box" style="object-position:46% 26%"></div>
+            <div class="scard-inner">
+              <div class="scard-top">
+                <span class="count"><b>06</b> / 06</span>
+                <span class="scard-tag">Pull · Clear · Reseal</span>
+              </div>
+              <div class="scard-body">
+                <h3>Locked-<em>In</em> Fresh</h3>
+                <p>A resealable, refillable eco-case keeps every swab dust-free and travel-ready. Pull one, clear, reseal — done.</p>
+              </div>
+              <div class="scard-foot"><span>Freshness</span><span class="bar"><i></i></span><span>Refillable case</span></div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+      <div class="showcase-bar"></div>
+      <div class="showcase-fill" id="showcaseFill"></div>
+    </div>
+  </section>
+
+  <!-- REVEAL — volt curtain lifts up (parallax) to reveal the scroll-scrubbed frames beneath -->
+  <section class="unbox" id="reveal" style="--frames:70; --scrub:4;">
+    <div class="reveal-pin">
+      <!-- frames + copy already sitting underneath -->
+      <div class="reveal-frames" id="revealFrames">
+        <canvas class="reveal-canvas" id="revealCanvas"></canvas>
+      </div>
+      <!-- copy sits outside the parallax layer so it never drifts under the nav -->
+      <div class="reveal-copy">
+        <span class="eyebrow">Nike Cotton EarMax · Limited Edition</span>
+        <h2 class="c1">Open<br>the <em>box</em>.</h2>
+        <h2 class="c2">One swab.<br><em>Done</em>.</h2>
+      </div>
+      <!-- volt curtain on top that slides up to reveal the frames -->
+      <div class="reveal-curtain" id="revealCurtain"><h2>Just<br>Clear It</h2></div>
+    </div>
+  </section>
+
+  <!-- SPECS -->
+  <section id="specs">
+    <div class="wrap">
+      <div class="specs">
+        <div class="wrap" style="padding:64px 60px;">
+          <div class="specs-inner">
+            <div class="reveal">
+              <div class="section-head" style="margin-bottom:0;">
+                <h2>The details<br>in every swab</h2>
+                <p style="color:#b5b5b5;">Materials chosen down to the fiber. Here's what a reinvented cotton swab is actually made of.</p>
+              </div>
+            </div>
+            <ul class="spec-list reveal">
+              <li><span class="label">Cotton</span><span class="val">100<span class="unit">% Organic</span></span></li>
+              <li><span class="label">Tips per swab</span><span class="val">2<span class="unit">ends</span></span></li>
+              <li><span class="label">Swabs per pack</span><span class="val">200<span class="unit">ct</span></span></li>
+              <li><span class="label">Composts in</span><span class="val">90<span class="unit">days</span></span></li>
+              <li><span class="label">Plastic content</span><span class="val">0<span class="unit">%</span></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACK STUDIO -->
+  <section id="colors">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Pick your pack</h2>
+        <p>Four case editions. Same reinvented swab inside — see it recolor live.</p>
+      </div>
+
+      <div class="pack-studio reveal" id="packStudio">
+        <div class="pack-stage">
+          <!-- CASE -->
+          <div class="pack-viz">
+            <svg class="pack-box" viewBox="0 0 380 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cotton EarMax case">
+              <defs>
+                <linearGradient id="caseGrad" x1="0" y1="0" x2="0.4" y2="1">
+                  <stop offset="0" class="cg1"/><stop offset="1" class="cg2"/>
+                </linearGradient>
+              </defs>
+              <rect x="64" y="18" width="252" height="464" rx="24" fill="url(#caseGrad)"/>
+              <rect x="64" y="18" width="252" height="464" rx="24" fill="none" stroke="rgba(0,0,0,0.14)" stroke-width="1"/>
+              <!-- product window -->
+              <rect x="232" y="64" width="66" height="372" rx="10" class="p-window"/>
+              <g>
+                <!-- swab tips inside the window -->
+                <circle cx="265" cy="92"  r="11" class="p-tip"/><rect x="259" y="104" width="12" height="6" rx="2" class="p-accent"/>
+                <circle cx="265" cy="139" r="11" class="p-tip"/><rect x="259" y="151" width="12" height="6" rx="2" class="p-accent"/>
+                <circle cx="265" cy="186" r="11" class="p-tip"/><rect x="259" y="198" width="12" height="6" rx="2" class="p-accent"/>
+                <circle cx="265" cy="233" r="11" class="p-tip"/><rect x="259" y="245" width="12" height="6" rx="2" class="p-accent"/>
+                <circle cx="265" cy="280" r="11" class="p-tip"/><rect x="259" y="292" width="12" height="6" rx="2" class="p-accent"/>
+                <circle cx="265" cy="327" r="11" class="p-tip"/><rect x="259" y="339" width="12" height="6" rx="2" class="p-accent"/>
+                <circle cx="265" cy="374" r="11" class="p-tip"/><rect x="259" y="386" width="12" height="6" rx="2" class="p-accent"/>
+                <circle cx="265" cy="414" r="11" class="p-tip"/>
+              </g>
+              <!-- NIKE wordmark -->
+              <text x="98" y="112" font-family="Archivo, sans-serif" font-weight="900" font-size="32" letter-spacing="-1" class="p-onbox">NIKE</text>
+              <!-- big swoosh -->
+              <svg x="92" y="150" width="150" height="52" viewBox="0 0 24 8.4"><path d="M23.4.3c-.6.3-1.4.7-9.2 5.5C8.5 9.3 6 10.2 4.4 9.5 3.1 8.9 3 7.6 3.4 6.4 3.9 5 5 3.6 5.9 2.6c-.2.3-2 3.1.4 3.9 1.4.5 3.6-.5 5-1.2C13 4.4 22.4.4 22.7.3c.5-.2.9-.1.7 0z" class="p-onbox"/></svg>
+              <!-- wordmark -->
+              <text x="98" y="410" font-family="Archivo, sans-serif" font-weight="600" font-size="19" class="p-onbox">Cotton EarMax</text>
+              <text x="98" y="432" font-family="Archivo, sans-serif" font-weight="800" font-size="11" letter-spacing="1.6" class="p-accent">LIMITED EDITION</text>
+            </svg>
+          </div>
+
+          <!-- SWAB (Air Cotton) -->
+          <div class="pack-viz">
+            <svg class="pack-swab" viewBox="0 0 150 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cotton EarMax swab">
+              <ellipse cx="75" cy="48"  rx="27" ry="36" class="p-tip"/>
+              <rect x="63" y="80"  width="24" height="10" rx="3" class="p-accent"/>
+              <rect x="68" y="86"  width="14" height="268" rx="7" class="p-stem"/>
+              <svg x="58" y="200" width="34" height="12" viewBox="0 0 24 8.4"><path d="M23.4.3c-.6.3-1.4.7-9.2 5.5C8.5 9.3 6 10.2 4.4 9.5 3.1 8.9 3 7.6 3.4 6.4 3.9 5 5 3.6 5.9 2.6c-.2.3-2 3.1.4 3.9 1.4.5 3.6-.5 5-1.2C13 4.4 22.4.4 22.7.3c.5-.2.9-.1.7 0z" class="p-accent"/></svg>
+              <rect x="63" y="350" width="24" height="10" rx="3" class="p-accent"/>
+              <ellipse cx="75" cy="392" rx="27" ry="36" class="p-tip"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="pack-label">
+          <span class="name" id="packName">Raw Cotton</span>
+          <span class="price">Cotton EarMax · $12</span>
+        </div>
+        <div class="pack-picker" id="packPicker">
+          <button class="pack-chip on" data-pack="cotton"><span class="dot" style="background:#ece7df"></span><span class="name">Raw Cotton</span></button>
+          <button class="pack-chip" data-pack="onyx"><span class="dot" style="background:#161616"></span><span class="name">Black Onyx</span></button>
+          <button class="pack-chip" data-pack="volt"><span class="dot" style="background:#d6ff2b"></span><span class="name">Volt</span></button>
+          <button class="pack-chip" data-pack="ember"><span class="dot" style="background:#ff6a3d"></span><span class="name">Ember</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="buy">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <h2>Just<br>Clear It</h2>
+        <p>Free shipping, 60-day happiness guarantee, and Nike Members get first access to every refill drop.</p>
+        <a href="#" class="btn" style="font-size:17px;padding:16px 34px;">Add to Bag — $12 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <div class="brand">
+            <svg class="swoosh" viewBox="0 0 24 8.4" fill="currentColor"><path d="M23.4.3c-.6.3-1.4.7-9.2 5.5C8.5 9.3 6 10.2 4.4 9.5 3.1 8.9 3 7.6 3.4 6.4 3.9 5 5 3.6 5.9 2.6c-.2.3-2 3.1.4 3.9 1.4.5 3.6-.5 5-1.2C13 4.4 22.4.4 22.7.3c.5-.2.9-.1.7 0z"/></svg>
+            <span>EarMax</span>
+          </div>
+          <p>Cotton EarMax — the cotton swab, reinvented. Part of the Nike Essentials collection.</p>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <ul><li><a href="#features">Technology</a></li><li><a href="#specs">Specs</a></li><li><a href="#colors">Packs</a></li></ul>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <ul><li><a href="#">Fit Guide</a></li><li><a href="#">Warranty</a></li><li><a href="#">Returns</a></li></ul>
+        </div>
+        <div>
+          <h4>Nike</h4>
+          <ul><li><a href="#">Membership</a></li><li><a href="#">Find a Store</a></li><li><a href="#">Sustainability</a></li></ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Nike, Inc. Concept landing page.</span>
+        <span>Privacy · Terms · Cookie Settings</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('in'), (i % 3) * 80);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ---------- SCROLL-SCRUBBED HERO VIDEO ----------
+    (function () {
+      const stage   = document.getElementById('hero');
+      const header  = document.querySelector('header');
+      const video   = document.getElementById('heroVideo');
+      const line1   = document.getElementById('line1');
+      const line2   = document.getElementById('line2');
+      const hint    = document.getElementById('scrollHint');
+      if (!stage || !video) return;
+
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+      const map   = (v, a, b) => clamp((v - a) / (b - a), 0, 1);
+      const ease  = (x) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
+
+      let duration = 0;
+      // Timeline breakpoints (seconds of video), recomputed once we know the duration.
+      let t2, fadeEnd, appearStart, appearEnd;
+
+      function computeBreakpoints() {
+        // "~2s" moment where line 1 starts leaving (clamped so short clips still work).
+        t2          = Math.min(2, duration * 0.4);
+        const rest  = duration - t2;
+        fadeEnd     = t2 + Math.max(0.8, rest * 0.28);   // line1 fully gone
+        appearStart = fadeEnd + rest * 0.06;             // small gap
+        appearEnd   = appearStart + Math.max(0.6, rest * 0.20); // line2 fully in
+      }
+
+      let targetTime = 0;
+      let curTime = 0;
+      let running = false;
+
+      function onScroll() {
+        // Header goes solid once the hero is (almost) scrolled past.
+        if (header) {
+          const past = stage.getBoundingClientRect().bottom <= window.innerHeight * 1.05;
+          header.classList.toggle('solid', past);
+        }
+        if (!duration) return;
+        const scrollable = stage.offsetHeight - window.innerHeight;
+        const p = scrollable > 0 ? clamp(-stage.getBoundingClientRect().top / scrollable, 0, 1) : 0;
+        targetTime = p * duration;
+        // fade the scroll hint out almost immediately
+        if (hint) hint.style.opacity = String(clamp(1 - p * 12, 0, 1));
+        if (!running) { running = true; requestAnimationFrame(tick); }
+      }
+
+      function updateText(t) {
+        // Line 1: static until t2, then slides DOWN and fades out.
+        const f = ease(map(t, t2, fadeEnd));
+        line1.style.opacity = String(1 - f);
+        line1.style.transform = `translate(-50%, calc(-50% + ${f * 150}px))`;
+
+        // Line 2: rises up + fades in after line 1 is gone, then holds until the end.
+        const g = ease(map(t, appearStart, appearEnd));
+        line2.style.opacity = String(g);
+        line2.style.transform = `translate(-50%, calc(-50% + ${(1 - g) * 90}px))`;
+      }
+
+      function tick() {
+        curTime += (targetTime - curTime) * 0.16;
+        if (Math.abs(targetTime - curTime) < 0.002) curTime = targetTime;
+
+        if (video.readyState >= 1 && !video.seeking) {
+          try { video.currentTime = curTime; } catch (e) {}
+        }
+        updateText(curTime);
+
+        if (curTime !== targetTime) {
+          requestAnimationFrame(tick);
+        } else {
+          running = false;
+        }
+      }
+
+      function init() {
+        duration = video.duration || 0;
+        if (!duration || !isFinite(duration)) return;
+        computeBreakpoints();
+        updateText(0);
+        onScroll();
+      }
+
+      video.addEventListener('loadedmetadata', init);
+      if (video.readyState >= 1) init();
+      // Nudge decode of the first frame
+      video.load();
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+    })();
+
+    // ---------- HORIZONTAL SCROLL-SNAPPED SHOWCASE ----------
+    (function () {
+      const section = document.getElementById('features');
+      const track   = document.getElementById('showcaseTrack');
+      const fill    = document.getElementById('showcaseFill');
+      const outro   = document.getElementById('showcaseOutro');
+      if (!section || !track) return;
+
+      const N = parseInt(getComputedStyle(section).getPropertyValue('--cards'), 10) || track.children.length;
+      const cards = Array.from(track.children).map(p => p.querySelector('.scard'));
+      const imgs  = cards.map(c => c ? c.querySelector('.scard-img') : null);
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+      const mobile = () => window.matchMedia('(max-width: 820px)').matches;
+
+      // Scroll model: the first (N-1) screens drive the carousel; the last
+      // screen is the "outro" where the filled bar rises to cover the screen.
+      function metrics() {
+        const top = section.offsetTop;
+        const vh  = window.innerHeight;
+        const car = (N - 1) * vh;                 // carousel scroll distance
+        const total = section.offsetHeight - vh;  // car + one outro screen
+        return { top, vh, car, total, fillZone: total - car };
+      }
+
+      function progress() {
+        const { top, car, total, fillZone } = metrics();
+        const y = clamp(window.pageYOffset - top, 0, total);
+        return {
+          pCar:  car > 0 ? clamp(y / car, 0, 1) : 0,
+          pFill: fillZone > 0 ? clamp((y - car) / fillZone, 0, 1) : 0
+        };
+      }
+
+      function render() {
+        const { pCar, pFill } = progress();
+        const pos = pCar * (N - 1);
+        track.style.transform = `translate3d(${-pCar * (N - 1) * 100}vw, 0, 0)`;
+        cards.forEach((c, i) => {
+          if (!c) return;
+          const d = Math.min(Math.abs(i - pos), 1);
+          // morph: centered card fills the screen (page); transitioning cards shrink to a card
+          c.style.setProperty('--m', d.toFixed(4));
+          c.style.opacity = (1 - d * 0.12).toFixed(3);
+          const img = imgs[i];
+          if (img) img.style.setProperty('--z', (1.22 - d * 0.16).toFixed(3)); // smart zoom
+        });
+        // bottom bar fills with scroll, then rises to fill the whole screen
+        if (fill) {
+          fill.style.width = (pCar * 100) + '%';
+          fill.style.height = (6 + pFill * (window.innerHeight - 6)) + 'px';
+        }
+        if (outro) outro.style.opacity = clamp((pFill - 0.55) / 0.4, 0, 1).toFixed(3);
+      }
+
+      // --- snap: card-to-card in the carousel zone; never rest between cards ---
+      let snapping = false, idle = null, lastY = window.pageYOffset, dir = 0;
+
+      function scrollTop(px) {
+        snapping = true;
+        window.scrollTo({ top: px, behavior: 'smooth' });
+        clearTimeout(idle);
+        setTimeout(() => { snapping = false; }, 650);
+      }
+      function scrollToIndex(i) { const { top, vh } = metrics(); scrollTop(top + i * vh); }
+
+      function onScroll() {
+        if (mobile()) return;
+        dir = window.pageYOffset - lastY;
+        lastY = window.pageYOffset;
+        render();
+        if (snapping) return;
+        clearTimeout(idle);
+        idle = setTimeout(() => {
+          const { top, vh, car } = metrics();
+          const r = section.getBoundingClientRect();
+          const y = window.pageYOffset - top;
+          // entering from above (scrolling down) but not pinned yet -> snap slide 1 into a full page
+          if (dir >= 0 && r.top > 1 && r.top < vh * 0.85) { scrollTop(top); return; }
+          // only snap while pinned and still inside the carousel zone (not the outro)
+          if (r.top > 1 || r.bottom < vh) return;
+          if (y > car - 1) return;                 // in the outro -> free scroll
+          scrollToIndex(Math.round((y / car) * (N - 1)));
+        }, 120);
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', render);
+      render();
+    })();
+
+    // ---------- REVEAL: volt curtain lifts up (parallax) to reveal scroll-scrubbed frames ----------
+    (function () {
+      const section = document.getElementById('reveal');
+      const curtain = document.getElementById('revealCurtain');
+      const frames  = document.getElementById('revealFrames');
+      const canvas  = document.getElementById('revealCanvas');
+      if (!section || !canvas) return;
+      const c1 = section.querySelector('.reveal-copy .c1');
+      const c2 = section.querySelector('.reveal-copy .c2');
+      const ctx = canvas.getContext('2d');
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+      const mobile = () => window.matchMedia('(max-width: 820px)').matches;
+
+      // Video scrub replaces the JPEG frame sequence (much better quality).
+      // The old sequence had 160 frames and we ended on frame 70, so the scrub
+      // MUST stop at duration * (70/160) — never play past that moment.
+      const FRAME_END = 70, FRAME_TOTAL = 160;
+      const vid = document.createElement('video');
+      vid.src = 'assets/unbox.mp4';
+      vid.muted = true;
+      vid.playsInline = true;
+      vid.preload = 'auto';
+      let endTime = 0;   // set from metadata: the exact frame-70 timestamp
+      vid.addEventListener('loadedmetadata', () => {
+        endTime = vid.duration * (FRAME_END / FRAME_TOTAL);
+        seekTo(targetT); // paint the first frame
+      });
+      vid.addEventListener('seeked', () => draw(vid));
+      vid.load();
+
+      let cw = 0, ch = 0;
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        cw = canvas.clientWidth; ch = canvas.clientHeight;
+        canvas.width = Math.round(cw * dpr);
+        canvas.height = Math.round(ch * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        draw(vid);
+      }
+      // In the source video the floating swab's center sits at ~34% of the frame height.
+      const FY = 0.337;
+      let focusT = 0;   // 0 = normal framing; 1 = final framing (swab dead-center on screen)
+
+      function draw(v) {
+        if (!v || v.readyState < 2 || !v.videoWidth) return;
+        const cover = Math.max(cw / v.videoWidth, ch / v.videoHeight);
+        // normal framing: slight overscan + downward bias so the subject clears the nav
+        const s0 = cover * 1.06;
+        // final framing: the minimum zoom that lets the swab (at FY) sit at 50% of the screen
+        const s1 = Math.max(cover, ch / (2 * FY * v.videoHeight));
+        const s  = s0 + (s1 - s0) * focusT;
+        const w = v.videoWidth * s, h = v.videoHeight * s;
+        const slack = (h - ch) / 2;                        // hidden band top/bottom
+        const off0 = Math.min(ch * 0.12, slack);           // base bias: push down up to 12vh
+        const off1 = (0.5 - FY) * h;                       // exact offset that centers the swab
+        const yOff = Math.min(off0 + (off1 - off0) * focusT, slack);
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.drawImage(v, (cw - w) / 2, (ch - h) / 2 + yOff, w, h);
+      }
+
+      // --- smooth seek loop: ease currentTime toward the scroll target ---
+      let targetT = 0, curT = 0, ticking = false;
+      function step() {
+        curT += (targetT - curT) * 0.22;
+        if (Math.abs(targetT - curT) < 0.004) curT = targetT;
+        if (endTime && vid.readyState >= 1 && !vid.seeking) {
+          // hard cap: never seek past the frame-70 moment
+          try { vid.currentTime = Math.min(curT, endTime); } catch (e) {}
+        }
+        draw(vid);
+      }
+      function seekTo(t) {
+        targetT = clamp(t, 0, endTime || 0);
+        step();   // advance synchronously too, so scrubbing works even if rAF is throttled
+        if (!ticking) { ticking = true; requestAnimationFrame(tick); }
+      }
+      function tick() {
+        step();
+        if (curT !== targetT) requestAnimationFrame(tick);
+        else ticking = false;
+      }
+
+      function metrics() {
+        const top = section.offsetTop, vh = window.innerHeight;
+        const scrollable = section.offsetHeight - vh;
+        const liftDist = vh;                  // one screen to lift the curtain off
+        return { top, vh, scrollable, liftDist, scrubDist: scrollable - liftDist };
+      }
+      function render() {
+        if (mobile()) {
+          if (curtain) curtain.style.transform = 'translateY(-100%)';
+          if (frames) frames.style.transform = 'none';
+          seekTo((endTime || 0) * 0.5);
+          return;
+        }
+        const { top, scrollable, liftDist, scrubDist } = metrics();
+        const y = clamp(window.pageYOffset - top, 0, scrollable);
+        const pLift  = clamp(y / liftDist, 0, 1);
+        const pScrub = scrubDist > 0 ? clamp((y - liftDist) / scrubDist, 0, 1) : 0;
+        // volt curtain lifts straight up, revealing the frames already sitting beneath
+        if (curtain) curtain.style.transform = `translateY(${-pLift * 100}%)`;
+        // parallax: frames drift up slower than the curtain (depth)
+        if (frames) frames.style.transform = `translateY(${-pLift * 6}vh)`;
+        // final push-in: over the last 30% of the scrub, re-frame so the swab ends dead-center
+        const t = clamp((pScrub - 0.7) / 0.3, 0, 1);
+        focusT = t * t * (3 - 2 * t);            // smoothstep
+        // scrub the video (0 = open box) and STOP exactly at the frame-70 moment
+        seekTo(pScrub * endTime);
+        // crossfade the copy as the swab lifts out
+        if (c1) c1.style.opacity = clamp(1 - (pScrub - 0.30) / 0.18, 0, 1).toFixed(3);
+        if (c2) c2.style.opacity = clamp((pScrub - 0.48) / 0.20, 0, 1).toFixed(3);
+      }
+
+      window.addEventListener('scroll', render, { passive: true });
+      window.addEventListener('resize', () => { resize(); render(); });
+      // ResizeObserver covers the initial layout pass (clientWidth can be 0 at parse
+      // time) and any later size changes — more reliable than settle-tick hacks
+      if (window.ResizeObserver) new ResizeObserver(() => { resize(); render(); }).observe(canvas);
+      resize(); render();
+      window.addEventListener('load', () => { resize(); render(); });
+    })();
+
+    // ---------- PACK STUDIO: live-recolor the case + swab on chip click ----------
+    (function () {
+      const studio = document.getElementById('packStudio');
+      const picker = document.getElementById('packPicker');
+      const nameEl = document.getElementById('packName');
+      if (!studio || !picker) return;
+
+      const packs = {
+        cotton: { case: '#ece7df', case2: '#d9d1c0', onbox: '#20201d', accent: '#b98e3c', stem: '#e2dccd', tip: '#fbf8f2', name: 'Raw Cotton' },
+        onyx:   { case: '#1a1a1a', case2: '#050505', onbox: '#f2f2f2', accent: '#d6ff2b', stem: '#1c1c1c', tip: '#f1f1f1', name: 'Black Onyx' },
+        volt:   { case: '#d6ff2b', case2: '#a6cc13', onbox: '#0d0d0d', accent: '#0d0d0d', stem: '#cbe61f', tip: '#fbfbf2', name: 'Volt' },
+        ember:  { case: '#ff6a3d', case2: '#c73e1d', onbox: '#ffffff', accent: '#141414', stem: '#f4572b', tip: '#fbeee4', name: 'Ember' }
+      };
+      function apply(key) {
+        const p = packs[key]; if (!p) return;
+        for (const k of ['case', 'case2', 'onbox', 'accent', 'stem', 'tip']) studio.style.setProperty('--' + k, p[k]);
+        if (nameEl) nameEl.textContent = p.name;
+      }
+      picker.querySelectorAll('.pack-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          picker.querySelectorAll('.pack-chip').forEach(c => c.classList.remove('on'));
+          chip.classList.add('on');
+          apply(chip.dataset.pack);
+        });
+      });
+      apply('cotton');
+    })();
+  </script>
+</body>
+</html>

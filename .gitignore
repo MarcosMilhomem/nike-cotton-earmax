@@ -1,0 +1,15 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# Dependencies (none today, but future-proof)
+node_modules/
+
+# Local Claude Code overrides
+.claude/settings.local.json
+
+# Scratch / temp
+*.tmp
+.cache/
